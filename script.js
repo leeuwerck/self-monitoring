@@ -1,6 +1,7 @@
 const logs = document.getElementById("logs")
 
 function notify() {
+  const delaySeconds = parseInt(document.getElementById("delay_seconds").value)
   setTimeout(() => {
     const n = new Notification("Hello")
     n.onshow = () => logs.insertAdjacentHTML("afterend", `<p>Shown ${new Date().toISOString()}</p>`)
@@ -8,5 +9,5 @@ function notify() {
     n.onclose = () => logs.insertAdjacentHTML("afterend", `<p>Closed ${new Date().toISOString()}</p>`)
     n.onerror = () =>
       logs.insertAdjacentHTML("afterend", `<p>Error ${new Date().toISOString()} ${Notification.permission}</p>`)
-  }, 1000)
+  }, delaySeconds * 1000)
 }

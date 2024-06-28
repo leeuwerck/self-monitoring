@@ -1,7 +1,11 @@
 <html>
-  <script src="script.js" defer></script>
+  <head>
+    <link rel="manifest" href="manifest.json" />
+    <script src="script.js" defer></script>
+  </head>
   <body>
     <button onclick="Notification.requestPermission()">Request notification permission</button>
+    <input type="number" value="5" id="delay_seconds" />
     <button onclick="notify()">Notify</button>
     <div id="logs"></div>
   </body>
