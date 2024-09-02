@@ -1,5 +1,9 @@
 const logs = document.getElementById("logs")
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js")
+}
+
 function notify() {
   const delaySeconds = parseInt(document.getElementById("delay_seconds").value)
   setTimeout(() => {
