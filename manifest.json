@@ -13,5 +13,5 @@
     }
   ],
   "start_url": "../self-monitoring",
-  "display": "browser"
+  "display": "standalone"
 }
