@@ -2,12 +2,26 @@
   <head>
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
     <script src="app.js" defer></script>
   </head>
   <body>
-    <button onclick="Notification.requestPermission()">Request notification permission</button>
-    <input type="number" value="5" id="delay_seconds" />
-    <button onclick="notify()">Notify</button>
-    <div id="logs"></div>
+    <div>
+      <button onclick="Notification.requestPermission()">Request notification permission</button>
+    </div>
+    <div>
+      <input type="number" value="5" id="delay_seconds" />
+      <button onclick="notify()">Notify</button>
+    </div>
+    <div>
+      <p id="running_state_display">Paused</p>
+      <br />
+      <button onclick="startBackgroundNotifications()">Start notifications</button>
+      <button onclick="stopBackgroundNotifications()">Pause notifications</button>
+    </div>
+    <div>
+      <button onclick="getNotifications()">Retrieve notifications</button>
+      <pre id="notifications"></pre>
+    </div>
   </body>
 </html>
