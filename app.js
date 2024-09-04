@@ -4,6 +4,17 @@ const SERVICE_WORKER_MESSAGES = {
   START_NOTIFYING: "start_notifying",
   STOP_NOTIFYING: "stop_notifying",
 }
+function requestNotificationPermission() {
+  Notification.requestPermission().then((permission) => {
+    if (permission === "granted") showControls()
+  })
+}
+function showControls() {
+  document.getElementById("notification_request_button").style.visibility = "hidden"
+  document.getElementById("background_notifications_controls").style.visibility = "visible"
+  document.getElementById("notification_logs_controls").style.visibility = "visible"
+}
+if (Notification.permission === "granted") showControls()
 
 function startBackgroundNotifications() {
   sendServiceWorkerMessage(SERVICE_WORKER_MESSAGES.START_NOTIFYING)
@@ -20,8 +31,6 @@ function sendServiceWorkerMessage(message) {
     registration.active.postMessage(message)
   })
 }
-
-const logs = document.getElementById("logs")
 
 function getNotifications() {
   let db

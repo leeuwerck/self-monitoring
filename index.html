@@ -4,19 +4,23 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <link rel="stylesheet" href="style.css" />
     <script src="app.js" defer></script>
   </head>
   <body>
     <div>
-      <button onclick="Notification.requestPermission()">Request notification permission</button>
+      <button id="notification_request_button" onclick="requestNotificationPermission()">
+        Request notification permission
+      </button>
     </div>
-    <div>
+    <div id="background_notifications_controls" style="visibility: hidden">
       <p id="running_state_display">Paused</p>
       <br />
       <button onclick="startBackgroundNotifications()">Start notifications</button>
       <button onclick="stopBackgroundNotifications()">Pause notifications</button>
     </div>
-    <div>
+    <br />
+    <div id="notification_logs_controls" style="visibility: hidden">
       <button onclick="getNotifications()">Retrieve notifications</button>
       <pre id="notifications"></pre>
     </div>
