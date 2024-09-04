@@ -4,13 +4,6 @@ const NOTIFICATION_FREQUENCY = 2000
 let db
 const openOrCreateDB = indexedDB.open("experiment", 1)
 
-openOrCreateDB.addEventListener("error", () => console.error("Error opening DB"))
-
-openOrCreateDB.addEventListener("success", () => {
-  console.log("Successfully opened DB")
-  db = openOrCreateDB.result
-})
-
 openOrCreateDB.addEventListener("upgradeneeded", (init) => {
   db = init.target.result
 
@@ -18,10 +11,18 @@ openOrCreateDB.addEventListener("upgradeneeded", (init) => {
     console.error("Error loading database.")
   }
 
-  const table = db.createObjectStore("notifications")
+  const table = db.createObjectStore("notifications", { keyPath: "uuid" })
+  console.log("created object store")
 
-  table.createIndex("content", "content", { unique: false })
-  table.createIndex("reaction", "reaction", { unique: false })
+  // table.createIndex("content", "content", { unique: false })
+  // table.createIndex("reaction", "reaction", { unique: false })
+})
+
+openOrCreateDB.addEventListener("error", () => console.error("Error opening DB"))
+
+openOrCreateDB.addEventListener("success", () => {
+  db = openOrCreateDB.result
+  console.log("Successfully opened DB")
 })
 
 let running = false
@@ -70,8 +71,8 @@ function notify() {
   setTimeout(notify, NOTIFICATION_FREQUENCY)
 }
 
-function addNotification(id, content, reaction) {
-  const newNotification = { id, content, reaction, displayDate: new Date() }
+function addNotification(uuid, content, reaction) {
+  const newNotification = { uuid, content, reaction, displayDate: new Date() }
   const transaction = db.transaction(["notifications"], "readwrite")
   const objectStore = transaction.objectStore("notifications")
   const query = objectStore.add(newNotification)
